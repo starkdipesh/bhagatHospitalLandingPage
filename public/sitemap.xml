@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://bhagathospital.vercel.app/</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://bhagathospital.vercel.app/privacy-policy</loc>
+    <changefreq>yearly</changefreq>
+  </url>
+  <url>
+    <loc>https://bhagathospital.vercel.app/terms-and-conditions</loc>
+    <changefreq>yearly</changefreq>
+  </url>
+  <url>
+    <loc>https://bhagathospital.vercel.app/medical-disclaimer</loc>
+    <changefreq>yearly</changefreq>
+  </url>
+</urlset>
