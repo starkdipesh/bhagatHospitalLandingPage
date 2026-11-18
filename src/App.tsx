@@ -17,7 +17,8 @@ import { ContactActions } from './components/sections/ContactActions';
 import { setupCareChoreography, setupSectionReveals } from './animation/scrollFoundation';
 import { SeoMetadata } from './components/SeoMetadata';
 import { LegalPage } from './pages/LegalPages';
-import { legalPages, SITE_URL } from './pages/legalContent';
+import { legalPages } from './pages/legalContent';
+import { getAppPath, normalizeAppPath } from './utils/sitePaths';
 
 const HospitalWebsite: React.FC = () => {
   const { velocity, progress, activeSection, scrollTo } = useMomentumScroll();
@@ -105,13 +106,11 @@ const HospitalWebsite: React.FC = () => {
   );
 };
 
-const normalizePath = (path: string) => path.replace(/\/+$/, '') || '/';
-
 export const App: React.FC = () => {
-  const [pathname, setPathname] = useState(() => normalizePath(window.location.pathname));
+  const [pathname, setPathname] = useState(() => normalizeAppPath(window.location.pathname));
 
   useEffect(() => {
-    const handleNavigation = () => setPathname(normalizePath(window.location.pathname));
+    const handleNavigation = () => setPathname(normalizeAppPath(window.location.pathname));
     window.addEventListener('popstate', handleNavigation);
     return () => window.removeEventListener('popstate', handleNavigation);
   }, []);
@@ -142,7 +141,7 @@ export const App: React.FC = () => {
         <main className="legal-page legal-not-found">
           <h1>Page not found</h1>
           <p>This page may have moved or is not available.</p>
-          <a className="legal-home-link" href={SITE_URL}>Return to Bhagat Hospital</a>
+          <a className="legal-home-link" href={getAppPath('/')}>Return to Bhagat Hospital</a>
         </main>
       </>
     );

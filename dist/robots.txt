@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://bhagathospital.vercel.app/sitemap.xml
+Sitemap: https://starkdipesh.github.io/bhagatHospitalLandingPage/sitemap.xml

@@ -105,4 +105,6 @@ Legal page content is in `src/pages/legalContent.ts`, and page rendering is in `
 
 ## Deployment notes
 
-The canonical site URL is currently `https://bhagathospital.vercel.app/`. The repository includes Vercel rewrites for the legal routes and crawler files in `public/`. When deploying elsewhere, configure equivalent clean-route handling and update canonical URLs and the sitemap to match the deployment domain.
+The Vercel deployment uses the root path and the canonical URL `https://bhagathospital.vercel.app/`. The GitHub Actions Pages build detects its Actions environment and builds with the repository base path `/bhagatHospitalLandingPage/`; asset URLs, internal legal-page links, canonical metadata, and the sitemap use the Pages URL `https://starkdipesh.github.io/bhagatHospitalLandingPage/`.
+
+The GitHub Pages workflow is `.github/workflows/deploy.yml`. To publish, push to `main` and select **GitHub Actions** as the Pages build and deployment source in repository settings. Local development and ordinary local builds continue to use the root path. The repository also includes Vercel rewrites for its legal routes.

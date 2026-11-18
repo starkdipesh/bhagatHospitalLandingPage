@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { SITE_URL } from '../pages/legalContent';
+import { getAppPath } from '../utils/sitePaths';
 
 interface SeoMetadataProps {
   title: string;
@@ -56,6 +57,8 @@ const physicianStructuredData = {
   worksFor: { '@id': SITE_URL },
 };
 
+const getCurrentSiteUrl = () => new URL(getAppPath('/'), window.location.origin).href;
+
 export const SeoMetadata: React.FC<SeoMetadataProps> = ({
   title,
   description,
@@ -64,25 +67,39 @@ export const SeoMetadata: React.FC<SeoMetadataProps> = ({
   indexable = true,
 }) => {
   useEffect(() => {
+    const siteUrl = getCurrentSiteUrl();
+    const canonicalUrl = new URL(getAppPath(path), window.location.origin).href;
     document.title = title;
     setMeta('name', 'description', description);
     setMeta('property', 'og:title', title);
     setMeta('property', 'og:description', description);
     setMeta('property', 'og:type', 'website');
-    setMeta('property', 'og:url', `${SITE_URL}${path}`);
+    setMeta('property', 'og:url', canonicalUrl);
     setMeta('property', 'og:site_name', 'Bhagat Hospital');
     setMeta('property', 'og:locale', 'en_IN');
     setMeta('name', 'twitter:card', 'summary');
     setMeta('name', 'twitter:title', title);
     setMeta('name', 'twitter:description', description);
     setMeta('name', 'robots', indexable ? 'index,follow' : 'noindex,follow');
-    setLink('canonical', `${SITE_URL}${path}`);
+    setLink('canonical', canonicalUrl);
 
     document.head.querySelectorAll('script[data-site-structured-data]').forEach((script) => script.remove());
-    if (!includeStructuredData) {
-      document.head.querySelectorAll('script[data-static-site-structured-data]').forEach((script) => script.remove());
-    } else if (!document.head.querySelector('script[type="application/ld+json"]')) {
-      [hospitalStructuredData, physicianStructuredData].forEach((schema) => {
+    document.head.querySelectorAll('script[data-static-site-structured-data]').forEach((script) => script.remove());
+    if (includeStructuredData) {
+      const physicianId = `${siteUrl}#physician`;
+      const schemas = [
+        {
+          ...hospitalStructuredData,
+          url: siteUrl,
+          employee: { '@id': physicianId },
+        },
+        {
+          ...physicianStructuredData,
+          '@id': physicianId,
+          worksFor: { '@id': siteUrl },
+        },
+      ];
+      schemas.forEach((schema) => {
         const script = document.createElement('script');
         script.type = 'application/ld+json';
         script.dataset.siteStructuredData = 'true';

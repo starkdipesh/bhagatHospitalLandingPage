@@ -2,6 +2,7 @@ import React from 'react';
 import { Calendar, Clock3, MapPin, Navigation, Phone } from 'lucide-react';
 import { medicalAudio } from '../hud/AudioSynthesizer';
 import { CreatorCredit } from '../CreatorCredit';
+import { getAppPath } from '../../utils/sitePaths';
 
 interface LocationFooterHUDProps {
   onOpenBooking: () => void;
@@ -90,9 +91,9 @@ export const LocationFooterHUD: React.FC<LocationFooterHUDProps> = ({ onOpenBook
       <div className="location-footer-note">
         <span>© {new Date().getFullYear()} Bhagat Hospital, Bhuj.</span>
         <nav className="location-legal-links" aria-label="Legal information">
-          <a href="/privacy-policy">Privacy Policy</a>
-          <a href="/terms-and-conditions">Terms and Conditions</a>
-          <a href="/medical-disclaimer">Medical Disclaimer</a>
+          <a href={getAppPath('/privacy-policy')}>Privacy Policy</a>
+          <a href={getAppPath('/terms-and-conditions')}>Terms and Conditions</a>
+          <a href={getAppPath('/medical-disclaimer')}>Medical Disclaimer</a>
         </nav>
         <span>Dr. Ramesh Bhagat · Cardiologist</span>
         <CreatorCredit />
